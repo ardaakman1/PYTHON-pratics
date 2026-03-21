@@ -1,0 +1,4 @@
+minecraft
+computer
+physics
+chemistry
