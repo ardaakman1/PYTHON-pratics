@@ -14,7 +14,7 @@ with open(sys.argv[1], "w", newline='') as file:
         sets = int(input(f"please enter the exercise {i + 1}'s set number: "))
         reps = int(input(f"please enter the exercise {i + 1}'s rep number: "))
         weight = int(input(f"please enter how much weight did you work with at exercise {i + 1}: "))
-        row_to_save = {"execise_name": name, "sets": sets, "reps": reps, "weight(kg)": weight} #  we use {} because we defined dictionary
+        row_to_save = {"exercise_name": name, "sets": sets, "reps": reps, "weight(kg)": weight} #  we use {} because we defined dictionary
         writer.writerow(row_to_save)
 print(f"\n\nProcess is completed\n{sys.argv[1]} is created succesfully")
 
