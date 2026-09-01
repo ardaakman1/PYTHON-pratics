@@ -1,0 +1,10 @@
+import re
+
+email = input("What is your email? ").strip()
+if re.search(r"^[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\.edu$", email):  
+    print("Invalid")
+else:
+    print("Invalid")
+# [] buraya dahil ettiğimiz karakterleri [^] bunun içine ise dahil etmediğimiz karakterleri yazıyoruz bunlar yerine herhangi bir şey demek 
+# {number} number a bir sayı verip spesifik olarak şu kadar sayı gir dmeeyi sağlayabiliriz
+# [^a-zA-Z] yazıp teker teker alfabeyi yazmak yerine tüm bunları ve arasını dahil etme diyebiliriz ve hiç , . KOYMADAN büyük harfleri de dahi etme demiş oluruz

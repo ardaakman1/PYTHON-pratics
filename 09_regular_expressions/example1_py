@@ -1,0 +1,23 @@
+import re
+
+email = input("What is your email? ").strip()  # bu string ifademin başında ve sonundaki space leri atacak
+if re.search(".+@.+", email):
+    print("Valid")
+else:
+    print("Invalid")
+# burda .+ herhangi bir karakterden en az bir tane olsun demek regex de . joker gibi bir şey
+email = input("What is your email? ").strip()
+if re.search(r"^.+@.+\.edu$", email):  # burda r ile raw string yaptık çünkü python \  ı yanlış okuyabilir ve \. yaptık çünkübu regex değil string nokta olduğunu belirtmek için ve ^ ile başlangıcı $ ile sonun orası olduğunu belirityorum
+    print("Valid")
+else:
+    print("Invalid")
+
+
+# . any charachter except a new line
+# * 0 or mode repetitions
+#  + 1 or more repetitions
+# ? 1 or 0 repetitions
+# {m} m repetitions
+# {m-n} m-n repetitions
+# ^ matches the start of the string
+# $ matches the end of the string or just before the newline of the end of the string
