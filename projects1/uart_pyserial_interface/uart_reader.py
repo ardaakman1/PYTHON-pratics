@@ -12,7 +12,7 @@ class read_sensor:
         self.rows = csv.DictWriter(self.file, fieldnames=["Servo", "Led_pwm", "Distance"])
 
         if self.ser.is_open:
-            print(f"{self.port_name} has opened!\n")
+            print(f"{self.port_name} has succesfully opened!")
             self.ser.reset_input_buffer()
             time.sleep(1)
 
@@ -42,7 +42,7 @@ class read_sensor:
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.ser.close()
         self.file.close()
-        print(f"\n\n{self.port_name} has closed! --- system closed succesfully!\n\n")
+        print(f"\n\n{self.port_name} has closed ----- System closed succesfully!\n\n")
 
     def _save_to_csv(self, servo, led, dist):
         self.file.seek(0)
@@ -52,11 +52,12 @@ class read_sensor:
         self.file.flush()
         self.ser.reset_input_buffer()
 
-    def _show_at_bar(self, device, maks_limit, division_limit):  # barla gösteriyorum
-        filled_section = int((min(device, maks_limit) * 20) / division_limit)
+    def _show_at_bar(self, device_value, maks_limit, division_limit):
+        filled_section = int((min(device_value, maks_limit) * 20) / division_limit)
         bar = "█" * filled_section + "-" * (20 - filled_section)
         return bar
-    
+
+
     def read_write_sensor(self):
         while True:
             try:
@@ -69,19 +70,18 @@ class read_sensor:
                         print(f"\nServo: {servo_value:3} |{self._show_at_bar(servo_value, 125, 115)}|")
                         print(f"Led_pwm: {led_pwm_value:3} |{self._show_at_bar(led_pwm_value, 1000, 960)}|")
                         print(f"Distance: {distance}")
-                        
 
                         self._save_to_csv(servo_value, led_pwm_value, distance)
-            except serial.SerialException:  # eğer while okunurken kablo çıkarsa
+
+            except serial.SerialException:
                 print("\n\nERROR --- USB cable has probably been disconnected\n")
                 print("Please control your USB cable\n\n")
-                break  # dögüden çıkıp __exit__ a gitti
+                break
 
 def port_selector():
     ports = serial.tools.list_ports.comports()
-    #  if ports is None: bu olmaz çünkü takılı port yoksa comports BOŞ liste döndürür bu yüzden not None değil not ports kullanmalıyız
     if not ports:
-        print("\n\nCould not found any ports...\n\n")
+        print("\n\nCould not fpund any ports...\n\n")
         return None
 
     for index, port in enumerate(ports):
@@ -90,11 +90,12 @@ def port_selector():
     try:
         user_choice = int(input("Please enter the number of the port that you have chosen: "))
         selected_port = ports[user_choice - 1].device
-        print(f"{selected_port} has selected\n")
+        print(f"\n\n{selected_port} has chosen!\n\n")
         return selected_port
     except (ValueError, IndexError):
-        print("Could not found the port you have entered\n")
+        print("\n\nCould not found the port that you have entered\n\n")
         return None
+
 
 def main():
     try:
@@ -105,5 +106,5 @@ def main():
     except ValueError as error:
         print(f"\n\nSYSTEM CLOSED --- {error}\n\n")
 
-if "__main__" == __name__:
-    main() 
+if __name__ == "__main__":
+    main()
